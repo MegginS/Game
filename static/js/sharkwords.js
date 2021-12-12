@@ -26,7 +26,7 @@ const createDivsForChars = word => {
   // EX: createDivsForChars=e=>{const t=document.querySelector("#word-container");
   // for(const n of e)t.insertAdjacentHTML("beforeend",`<div class="letter-box ${n}"></div>`)},
   const t=document.querySelector("#word-container");
-  for(const n of word)t.insertAdjacentHTML("beforeend",`<div class="letter-box ${n}"></div>`)
+  for(const n of word) {t.insertAdjacentHTML("beforeend",`<div class="letter-box ${n}" id=${n}></div>`)}
 };
 
 // Loop over each letter in the alphabet and generate a button
@@ -38,7 +38,7 @@ const generateLetterButtons = () => {
   // {const e=document.querySelector("#letter-buttons");
   // for(const t of ALPHABET)e.insertAdjacentHTML("beforeend",`<button>${t}</button>`)},
   const e=document.querySelector("#letter-buttons");
-  for(const t of ALPHABET)e.insertAdjacentHTML("beforeend",`<button>${t}</button>`)
+  for(const t of ALPHABET) {e.insertAdjacentHTML("beforeend",`<button>${t}</button>`)}
 };
 
 // Set the `disabled` property of `buttonEl` to `true.
@@ -60,6 +60,35 @@ const isLetterInWord = letter => {
   null!==document.querySelector(`div.${letter}`)
 };
 
+
+// Called when `letter` is in word. Update contents of divs with `letter`.
+//
+const handleCorrectGuess = letter => {
+  // Put the letter in the display answer
+   const n=document.querySelectorAll(`div.${e}`);
+   for(const t of n) {t.innerHTML=e,correctGuesses+=1;
+   correctGuesses===t.length}
+};
+
+//
+// Called when `letter` is not in word.
+//
+// Increment `numWrong` and update the shark image.
+// If the shark gets the person (5 wrong guesses), disable
+// all buttons and show the "play again" message.
+
+const handleWrongGuess = () => {
+  // Replace this with your code
+};
+
+//  Reset game state. Called before restarting the game.
+const resetGame = () => {
+  window.location = '/sharkwords';
+};
+
+//  hbget js-sharkwords-game-play
+
+
 // This is like if __name__ == '__main__' in Python
 // It will be called when the file is run (because
 // we call the function on line 66)
@@ -68,7 +97,7 @@ const isLetterInWord = letter => {
   // You can change this to choose a random word from WORDS once you
   // finish this lab but we hard code it so we know what the word is
   // and can tell if things look correct for this word
-  const word = 'hellohellohello';
+  const word = 'hello';
 
   // call the function that makes an empty line for each letter in the word
   // Replace this line with the function call
@@ -80,4 +109,43 @@ const isLetterInWord = letter => {
 
   // in the next lab, you will be adding functionality to handle when
   // someone clicks on a letter
+
+  // 
+  // document.querySelector("#letter-buttons").addEventListener('click', (evt) => {
+  //   const clickedLetter= evt.target;
+
+
+  //   if (isLetterInWord(letter)){
+  //     handleCorrectGuess(letter)
+  //   } else {
+  //     handleWrongGuess()
+  //   }
+
+  // disableLetterButton(letter)
+    
+  // });
+
+
+
+  const buttons = document.querySelectorAll('button');
+
+  for (const button of buttons) {
+    button.addEventListener('click', evt => {
+      const clickedBtn = evt.target;
+      disableLetterButton(clickedBtn);
+
+      const letter = clickedBtn.textContent;
+
+      if (isLetterInWord(letter)) {
+        handleCorrectGuess(letter);   // , word); 
+      } else {
+        handleWrongGuess(letter);
+      }
+    });
+  }
+
+
+
+
+
 })();
